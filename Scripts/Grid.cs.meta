@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ee70d215b835d384a8755e844b59e06a
+timeCreated: 1445744216
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - cellImg: {instanceID: 0}
+  - imgChangeClick: {instanceID: 0}
+  - gridLayoutGroup: {instanceID: 0}
+  - recTrans: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
