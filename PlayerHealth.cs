@@ -24,6 +24,7 @@ public class PlayerHealth : MonoBehaviour {
 	{
 		if(isTouchedMe.gameObject.name == "Bullet"){
 		currentHealth -= 10;
+		healthSlider.value = currentHealth;
 		}
 	}
 }
