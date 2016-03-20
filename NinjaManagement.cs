@@ -7,8 +7,10 @@ public class NinjaManagement : MonoBehaviour {
 	private Animator myAnimator;
 
 	private float movementSpeed = 10;
+
 	private bool isChangeSpriteDirection = true;
 	private bool isAttack = false;
+	private bool isOnGround = true;
 
 	// Use this for initialization
 	private void Start () {
@@ -25,37 +27,35 @@ public class NinjaManagement : MonoBehaviour {
 	private void FixedUpdate () {
 		float h = Input.GetAxis("Horizontal");
 		float v = Input.GetAxis("Vertical");
+		if(isOnGround = true)
+		{
+			NinjaMovement(h,v);
+			Animating(h,v);
+			isOnGround = false;
+		}
 
-		NinjaRun(h);
-		NinjaJump(v);
 		NinjaAttack();
 		isAttack = false;
 
 		ChangeSpriteDirection(h);
 	}
 
-	// Action: RUN (theo truc X)
-	private void NinjaRun (float h)
+	// Action: RUN and JUMP
+	private void NinjaMovement(float h, float v)
 	{
-		if(h != 0)
+		if(h != 0 || v != 0)
 		{
-			Vector2 horizontal = new Vector2(h * movementSpeed, 0);
-			rb2D.velocity = horizontal;
-			myAnimator.SetFloat("Speed", Mathf.Abs(h));
+			Vector2 movement = new Vector2(h * movementSpeed, v * movementSpeed);
+			rb2D.velocity = movement;
 		}
 	}
 
-	// Action: JUMP (theo truc Y)
-	private void NinjaJump(float v)
+	// Animation
+	private void Animating(float h, float v)
 	{
-		if(v != 0)
-		{
-			Vector2 vertical = new Vector2(0, v * movementSpeed);
-			rb2D.velocity = vertical;
-			myAnimator.SetFloat("Height", Mathf.Abs(v));
-		}
+		myAnimator.SetFloat("Speed", Mathf.Abs(h));
+		myAnimator.SetFloat("Height", Mathf.Abs(v));
 	}
-
 	// Action: ATTACK
 	private void NinjaAttack()
 	{
@@ -83,6 +83,14 @@ public class NinjaManagement : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
 			isAttack = true;
+		}
+	}
+
+	private void OnCollisionEnter2D(Collision2D col)
+	{
+		if (col.gameObject.tag == "Ground") 
+		{
+			isOnGround = true;
 		}
 	}
 }
